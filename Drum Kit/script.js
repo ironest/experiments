@@ -5,11 +5,19 @@ for (var i=0;i<elem.length;i++)
 
    var btnInnerHTML = this.innerHTML;
    makeSound(btnInnerHTML);
+   buttonAnimation(btnInnerHTML);
 
 });
 
 document.addEventListener("keydown", function (event) {
-   makeSound(event.key);
+
+   var acceptedKeys = ["w", "a", "s", "d", "j", "k", "l"];
+
+   if (acceptedKeys.includes(event.key)){
+      makeSound(event.key);
+      buttonAnimation(event.key);
+   }
+
 })
 
 function makeSound(key){
@@ -38,9 +46,18 @@ function makeSound(key){
          audio = new Audio("sounds/kick-bass.mp3");
          break;
       default:
-         console.log(key);
          break;
    } 
 
    audio.play();
+}
+
+function buttonAnimation(currentKey){
+   var activeBtn = document.querySelector("." + currentKey);
+   activeBtn.classList.add("pressed");
+
+   setTimeout(function(){
+      activeBtn.classList.remove("pressed");
+   }, 100);
+   
 }
